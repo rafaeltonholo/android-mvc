@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.tonholosolutions.testzup.view.activity.MovieInformationActivity"
+    tools:showIn="@layout/activity_movie_information">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/fab_padding_bottom"
+            android:paddingTop="@dimen/activity_vertical_margin">
+
+            <ImageView
+                android:id="@+id/img_movie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"/>
+
+            <TextView
+                android:id="@+id/txt_title"
+                style="@style/Base.TextAppearance.AppCompat.Large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Movie Name"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/txt_subtitle"
+                style="@style/Base.TextAppearance.AppCompat.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rated | Runtime | Genre | Released (Country)"
+                />
+
+            <TextView
+                android:id="@+id/txt_plot"
+                style="@style/Base.TextAppearance.AppCompat.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                />
+
+
+            <TextView
+                android:id="@+id/txt_user_rate"
+                style="@style/Base.TextAppearance.AppCompat.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/user_rate"
+                android:textStyle="bold"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp"/>
+
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/director"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/txt_director"
+                style="@style/Base.TextAppearance.AppCompat.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                />
+
+
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/writer"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/txt_writer"
+                style="@style/Base.TextAppearance.AppCompat.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                />
+
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/actors"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/txt_actors"
+                style="@style/Base.TextAppearance.AppCompat.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                />
+
+        </LinearLayout>
+    </ScrollView>
+</android.support.design.widget.CoordinatorLayout>
