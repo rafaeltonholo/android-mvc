@@ -100,7 +100,12 @@ public class SerializableRouter extends AbstractRouter {
 
     @Override
     public void back(String action, Parameter... params) {
-
+        clearParameters();
+        addParameters(params);
+        final Activity view = Container.resolve(actualController);
+        view.finish();
+        Container.remove(actualController);
+        actualController = popBackStack();
     }
 
     private Bundle createParameters() {
