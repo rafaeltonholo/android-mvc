@@ -112,6 +112,46 @@ public abstract class AbstractController<T> extends Observable implements Contro
     }
 
     /**
+     * Route to {@code target} {@link Controller} from actual {@link Controller} without an action
+     * and waiting a result from the other controller when it executes a back action.
+     *
+     * @param target      Class instance of the Target {@link Controller}.
+     * @param requestCode The Requested code from action
+     * @param params      The parameters that will be passed to target.
+     */
+    protected final void routeWithResult(final Class<?> target, final int requestCode, Parameter... params) {
+        getRouter().routeWithResult(target, requestCode, params);
+    }
+
+    /**
+     * Route to {@code target} {@link Controller} from actual {@link Controller} with an action
+     * and waiting a result from the other controller when it executes a back action.
+     *
+     * @param target      Class instance of the Target {@link Controller}.
+     * @param action      The action that the target {@link Controller} needs to execute.
+     * @param requestCode The Requested code from action
+     * @param params      The parameters that will be passed to target.
+     */
+    protected final void routeWithResult(final Class<?> target, final String action, final int requestCode, Parameter... params) {
+        getRouter().routeWithResult(target, action, requestCode, params);
+    }
+
+    /**
+     * Route to {@code target} {@link Controller} from actual {@link Controller} with an action
+     * and waiting a result from the other controller when it executes a back action.
+     *
+     * @param target      Class instance of the Target {@link Controller}.
+     * @param action      The action that the target {@link Controller} needs to execute.
+     * @param noHistory   {@code true} if the target {@link Controller} can't be on back stack.
+     * @param requestCode The Requested code from action
+     * @param params      The parameters that will be passed to target.
+     */
+    protected final void routeWithResult(final Class<?> target, final String action, boolean noHistory, final int requestCode,
+                                         Parameter... params) {
+        getRouter().routeWithResult(target, action, noHistory, requestCode, params);
+    }
+
+    /**
      * Goes back to the previous {@link Controller} or exit the application.
      *
      * @param params Parameters to the previous {@link Controller}

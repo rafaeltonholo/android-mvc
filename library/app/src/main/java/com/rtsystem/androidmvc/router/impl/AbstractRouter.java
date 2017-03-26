@@ -61,6 +61,33 @@ public abstract class AbstractRouter implements Router {
     }
 
     /**
+     * Route to {@code target} {@link Controller} from actual {@link Controller} without an action
+     * and waiting a result from the other controller when it executes a back action.
+     *
+     * @param target      Class instance of the Target {@link Controller}.
+     * @param requestCode Code of the Result expected
+     * @param params      The parameters that will be passed to target.
+     */
+    @Override
+    public void routeWithResult(Class<?> target, final int requestCode, Parameter... params) {
+        routeWithResult(target, EMPTY_ACTION, requestCode, params);
+    }
+
+    /**
+     * Route to {@code target} {@link Controller} from actual {@link Controller} with an action
+     * and waiting a result from the other controller when it executes a back action.
+     *
+     * @param target      Class instance of the Target {@link Controller}.
+     * @param action      The action that the target {@link Controller} needs to execute.
+     * @param requestCode Code of the Result expected
+     * @param params      The parameters that will be passed to target.
+     */
+    @Override
+    public void routeWithResult(Class<?> target, String action, final int requestCode, Parameter... params) {
+        routeWithResult(target, action, false, requestCode, params);
+    }
+
+    /**
      * Goes back to the previous {@link Controller} or exit the application.
      *
      * @param params Parameters to the previous {@link Controller}
@@ -93,8 +120,14 @@ public abstract class AbstractRouter implements Router {
         mControllerBackStack.push(clazz);
     }
 
+    /**
+     * Pop the actual controller from back stack.
+     *
+     * @return Returns the new Actual Controller based on Back Stack,
+     */
     protected Class<?> popBackStack() {
-        return mControllerBackStack.pop();
+        mControllerBackStack.pop();
+        return mControllerBackStack.peek();
     }
 
     protected void addParameters(Parameter... parameters) {

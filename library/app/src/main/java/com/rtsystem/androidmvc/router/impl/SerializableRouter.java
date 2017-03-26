@@ -46,6 +46,14 @@ public class SerializableRouter extends AbstractRouter {
         }
     }
 
+    /**
+     * Route to {@code target} {@link Controller} from actual {@link Controller} with an action.
+     *
+     * @param target    Class instance of the Target {@link Controller}.
+     * @param action    The action that the target {@link Controller} needs to execute.
+     * @param noHistory {@code true} if the target {@link Controller} can't be on back stack.
+     * @param params    The parameters that will be passed to target.
+     */
     @Override
     public void route(Class<?> target, String action, boolean noHistory, Parameter... params) {
         final Activity view = Container.resolve(actualController);
@@ -59,6 +67,33 @@ public class SerializableRouter extends AbstractRouter {
         mIntent = new Intent(view, clazz);
         mIntent.putExtras(createParameters());
         view.startActivity(mIntent);
+        actualController = target;
+        pushBackStack(target);
+    }
+
+    /**
+     * Route to {@code target} {@link Controller} from actual {@link Controller} with an action
+     * and waiting a result from the other controller when it executes a back action.
+     *
+     * @param target      Class instance of the Target {@link Controller}.
+     * @param action      The action that the target {@link Controller} needs to execute.
+     * @param noHistory   {@code true} if the target {@link Controller} can't be on back stack.
+     * @param requestCode The Requested code from action
+     * @param params      The parameters that will be passed to target.
+     */
+    @Override
+    public void routeWithResult(Class<?> target, String action, boolean noHistory, int requestCode, Parameter... params) {
+        final Activity view = Container.resolve(actualController);
+        final Controller annotation = target.getAnnotation(Controller.class);
+        if (annotation == null) {
+            throw new RuntimeException("The target controller needs to annotate");
+        }
+
+        addParameters(params);
+        final Class<?> clazz = annotation.value();
+        mIntent = new Intent(view, clazz);
+        mIntent.putExtras(createParameters());
+        view.startActivityForResult(mIntent, requestCode);
         actualController = target;
         pushBackStack(target);
     }

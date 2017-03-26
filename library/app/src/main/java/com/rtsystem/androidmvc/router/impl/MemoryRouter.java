@@ -62,6 +62,41 @@ public class MemoryRouter extends AbstractRouter {
     }
 
     /**
+     * Route to {@code target} {@link Controller} from actual {@link Controller} with an action
+     * and waiting a result from the other controller when it executes a back action.
+     *
+     * @param target      Class instance of the Target {@link Controller}.
+     * @param action      The action that the target {@link Controller} needs to execute.
+     * @param noHistory   {@code true} if the target {@link Controller} can't be on back stack.
+     * @param requestCode The Requested code from action
+     * @param params      The parameters that will be passed to target.
+     */
+    @Override
+    public void routeWithResult(Class<?> target, String action, boolean noHistory, int requestCode, Parameter... params) {
+        if (((requestCode & 0XFFFF0000) != 0)) { // Limitation from FragmentActivity.
+            throw new IllegalArgumentException("Can only use lower 16 bits for requestCode");
+        }
+
+        clearParameters();
+        final Activity view = Container.resolve(actualController);
+        final Controller annotation = target.getAnnotation(Controller.class);
+        if (annotation == null) {
+            throw new NullPointerException("The target controller needs to annotate");
+        }
+        if (view == null) {
+            throw new NullPointerException("The View cannot be null. Controller Name: " + target.getSimpleName());
+        }
+
+        addParameters(params);
+        final Class<?> clazz = annotation.value();
+        final Intent intent = new Intent(view, clazz);
+        view.startActivityForResult(intent, requestCode);
+        actualController = target;
+        addParameters(params);
+        pushBackStack(target);
+    }
+
+    /**
      * Goes back to the previous {@link Controller} or exit the application.
      *
      * @param action An action that needs to be executed when the previous {@link Controller}

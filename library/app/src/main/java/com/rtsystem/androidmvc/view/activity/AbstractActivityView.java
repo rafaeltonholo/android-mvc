@@ -41,11 +41,20 @@ public abstract class AbstractActivityView<T> extends AppCompatActivity implemen
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                mController.back();
+                onBackPressed();
                 break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Take care of popping the fragment back stack or finishing the activity
+     * as appropriate.
+     */
+    @Override
+    public void onBackPressed() {
+        mController.back();
     }
 
     /**

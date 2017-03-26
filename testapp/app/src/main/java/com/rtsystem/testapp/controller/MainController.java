@@ -44,7 +44,8 @@ public class MainController extends AbstractController<List<Movie>> {
         switch (action) {
             case MvcActionUtil.MORE_INFO_MOVIE: {
                 Movie movie = (Movie) params[0].getValue();
-                route(MovieInformationController.class, new Parameter(ParameterUtil.MovieInformation.MOVIE_IMDB_ID, movie.getImdbID()));
+                routeWithResult(MovieInformationController.class, REQUEST_CODE,
+                        new Parameter(ParameterUtil.MovieInformation.MOVIE_IMDB_ID, movie.getImdbID()));
                 break;
             }
             case MvcActionUtil.FAVORITE_UNFAVORITE_MOVIE: {
@@ -54,7 +55,7 @@ public class MainController extends AbstractController<List<Movie>> {
                 break;
             }
             case MvcActionUtil.MainActivity.SEARCH:
-                route(SearchController.class);
+                routeWithResult(SearchController.class, REQUEST_CODE);
                 break;
         }
     }
